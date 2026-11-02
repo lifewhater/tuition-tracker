@@ -1,8 +1,7 @@
 import { db } from "./tables";
 
 export function addStudents(name: string, rateCents: number){
-    db.runSync("INSERT INTO students (name, rate_cents) VALUES (?, ?)", [name, rateCents]);
-}
+    db.runSync("INSERT INTO students (name, rate_cents) VALUES (?, ?)", [name, rateCents])}
 
 export function getStudents(){
     return db.getAllSync<{id: number; name: string; rate_cents: number}>(

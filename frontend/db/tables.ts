@@ -17,5 +17,6 @@ db.execSync(`
     minutes INTEGER NOT NULL,
     rate_cents INTEGER NOT NULL,
     UNIQUE (student_id, date)
+
     );
     `)
