@@ -1,20 +1,34 @@
 import { useState } from "react";
 import { Button, Text, View } from "react-native";
-import { addStudents, getStudents } from "../../db/queries";
+import { addStudents, getStudents, removeStudent } from "../../db/queries";
 
-export default function Home() {
-  const [students, setStudents] = useState(getStudents());
+type nameRate = {
+  name: string
+  rate: number
+}
 
-  const add = () => {
-    addStudents("Test", 4000);
-    setStudents(getStudents());      // reload after the change
-  };
+const Students = (props: nameRate) => {
+  const [name, setName] = useState("")
+  const [rate, setRate] = useState("")
 
   return (
-    <View style={{ flex: 1, padding: 24, paddingTop: 80, backgroundColor: "white" }}>
-      <Text style={{ color: "black", fontSize: 18 }}>Students: {students.length}</Text>
-      <Text style={{ color: "black" }}>{JSON.stringify(students)}</Text>
-      <Button title="Add test student" onPress={add} />
+    <View>
+      <Text>{props.name}, {props.rate}</Text>
+      <Button title="Add Student" onPress={() => {
+        addStudents(props.name, props.rate)
+        console.log(getStudents())
+      }} />
     </View>
-  );
+  )
 }
+
+const Tuition = () => {
+  return (
+    <>
+    <Students name="Cherry" rate={15} />
+    </>
+
+  )
+}
+
+export default Tuition;

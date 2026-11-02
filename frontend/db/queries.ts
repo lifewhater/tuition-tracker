@@ -9,3 +9,7 @@ export function getStudents(){
         "SELECT id, name, rate_cents FROM students WHERE active = 1 ORDER BY name"
     );
 }
+
+export function removeStudent(id: number){
+    db.runSync("DELETE FROM students WHERE id = ?", id);
+}
