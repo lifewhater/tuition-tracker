@@ -9,6 +9,6 @@ export function getStudents(){
     );
 }
 
-export function removeStudent(id: number){
-    db.runSync("DELETE FROM students WHERE id = ?", id);
+export function removeStudent(name: string){
+    db.runSync("DELETE FROM students WHERE name = ?", name);
 }
