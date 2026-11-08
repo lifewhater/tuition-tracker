@@ -1,29 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as Calendar from 'expo-calendar'
 import { Button, Text, View, TextInput, ScrollView } from "react-native";
 import { addStudents, getStudents, removeStudent } from "../../db/queries";
 
-type students = {
-  name: string
-  rate: number
+const CalendarTest = () => {
+  useEffect(() => {
+    (async() => {
+      const { status } = await Calendar.requestCalendarPermissions();
+      if (status === 'granted'){
+        const calendars = Calendar.getCalendars(Calendar.EntityTypes.EVENT);
+        console.log('All the calendars:');
+        console.log(JSON.stringify(calendars));
+      }
+    })();
+  }, [])
 }
 
-// const Students = (props: students) => {
-//   const [students, setStudents] = useState(getStudents())
-
-//   return (
-//     <View>
-//       <Text>{props.name}, {props.rate}</Text>
-//       <Button title="Add Student" onPress={() => {
-//         addStudents(props.name, props.rate)
-//         console.log(getStudents())
-//       }} />
-//       <Button title="Remove" onPress={()=> {
-//         removeStudent(props.name)
-//         console.log(getStudents())
-//       }}/>
-//     </View>
-//   )
-// }
+async function createCalender() {
+  
+  const newCalendar = await Calendar.createCalendar({
+    title: 'Expo Calendar',
+    color: 'blue',
+    entityType: Calendar.EntityTypes.EVENT,
+  })
+  console.log(`New Calendar: ${JSON.stringify(newCalendar)}`)
+}
 
 const Tuition = () => {
   // Loads the database
@@ -38,6 +39,9 @@ const Tuition = () => {
   }
   return (
 <ScrollView >
+
+  {/* Calendar Test */}
+  <Button title="Create a new calendar" onPress={createCalender} />
   
   <View>
    {/* Empty View */}

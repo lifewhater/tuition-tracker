@@ -12,3 +12,7 @@ export function getStudents(){
 export function removeStudent(name: string){
     db.runSync("DELETE FROM students WHERE name = ?", name);
 }
+
+export function weekDay(day: string){
+    return db.runAsync("")
+}
